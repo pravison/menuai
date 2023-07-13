@@ -1,0 +1,45 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block title %}Galleries{%endblock%}
+
+{% block content %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1> Galleries </h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li class="breadcrumb-item active">Galleries</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <p><a href="{% url 'add_gallery' %}"><i style="color: blue; font-weight: 100;" class="bi bi-plus-circle"></i>  <span>Add Gallery</span></a></p>
+      <div class="row">
+        {% for gallery in gallerys %}
+        <div class="col-lg-3">
+            <!-- Card with an image on top -->
+            <div class="card">
+                <img src="{{gallery.imageURL}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">{{gallery.event}}</h5>
+                <p class="card-text">{{gallery.short_description}}</p>
+                <hr/>
+                {%if request.user.staff.admin %}
+                <div style="text-align: center;">
+                    <a href="{% url 'gallery_details' gallery.id %}" class="btn btn-warning btn-sm" title="edit gallery"><i class="bi bi-pencil-square"></i></a>
+                    <a href="{% url 'delete_gallery' gallery.id %}" class="btn btn-danger btn-sm" title="delete gallery"><i class="bi bi-trash"></i></a>
+                </div>
+                {% endif %}
+                </div>
+            </div><!-- End Card with an image on top -->
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock %}

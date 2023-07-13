@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Edit Menu{%endblock%}
+
+{% block content %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Edit Menu</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'menu' %}">Menu</a></li>
+          <li class="breadcrumb-item active">Edit Menu</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    {%if success%}
+      <div class="alert alert-success" role="alert">
+        The Menu was editted successfuly.
+        <a href="{% url 'menu' %}"><i class="bi bi-arrow-left">back to the menu</i></a>
+      </div>
+    {%else%}
+      <section class="section">
+        <div class="row">
+          <div class="col-lg-8">
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">edit {{menu.name}}</h5>
+                  <!-- General Form Elements -->
+                <form method="POST" action="." enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    {% if form.errors or form.non_field_errors %}
+                    <div class="col-12">
+                    {% for field in form %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <p class="small mb-0" style="color: red;">{{ field.errors }}</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    {{form.non_field_errors}}
+
+                    <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                        {{ form.name }}
+                    </div>
+                    </div>
+
+                    <div class="row mb-3 pt-2">
+                    <label for="inputNumber" class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-10">
+                        {{ form.image }}
+                    </div>
+                    </div>
+
+                    <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Price</label>
+                    <div class="col-sm-10">
+                        {{ form.price }}
+                    </div>
+                    </div>
+
+                    <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Category</label>
+                    <div class="col-sm-10">
+                        {{ form.category }}
+                    </div>
+                    </div>
+
+                    <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Ingredients</label>
+                    <div class="col-sm-10">
+                        {{ form.ingredients }}
+                    </div>
+                    </div>
+
+                    <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Short Description</label>
+                    <div class="col-sm-10">
+                        {{ form.overview }}
+                    </div>
+                    </div>
+
+                    <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Full Description</label>
+                    <div class="col-sm-10">
+                        {{form.description }}
+                    </div>
+                    </div>
+
+                    <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Best Served At</label>
+                    <div class="col-sm-10">
+                        {{ form.best_for}}
+                    </div>
+                    </div>
+                
+                    <div class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">Promotion</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                        {{ form.promotion}}
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">Special</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                        {{form.special}}
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="row mb-3" >
+                    <div class="col-sm-10">
+                        <button style="align-items: center;" type="submit" class="btn btn-primary">Edit Menu</button>
+                        <button style="align-items: center;" class="btn btn-secondary"><a href="{% url 'menu' %}" class="alert-link">Cancel</a></button>
+                    </div>
+                    </div>
+
+                </form><!-- End General Form Elements -->
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    {%endif%}
+
+  </main><!-- End #main -->
+{%endblock%}

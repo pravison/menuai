@@ -1,0 +1,137 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block title %}Recent Sales{%endblock%}
+
+{% block content %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1> Recent Sales</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li class="breadcrumb-item active">Recent Sales</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <!-- Recent Sales -->
+        <div class="col-xxl-4 col-xl-12 overflow-auto">
+            <div class="card info-card revenue-card">
+
+              <!-- Bordered Tabs Justified -->
+              <div class="card-body ">
+                <h5 class="card-title">Recent Sales</h5>
+  
+                <!-- Bordered Tabs Justified -->
+                <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+                  <li class="nav-item flex-fill" role="presentation">
+                    <button style="font-size: 13px;" class="nav-link w-100 active" id="sthome-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-sthome" type="button" role="tab" aria-controls="sthome" aria-selected="true">Today</button>
+                  </li>
+                  <li class="nav-item flex-fill" role="presentation">
+                    <button style="font-size: 13px;" class="nav-link w-100" id="smprofile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-smprofile" type="button" role="tab" aria-controls="smprofile" aria-selected="false">This Month</button>
+                  </li>
+                  <li class="nav-item flex-fill" role="presentation">
+                    <button style="font-size: 13px;" class="nav-link w-100" id="sycontact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-sycontact" type="button" role="tab" aria-controls="sycontact" aria-selected="false">This Year</button>
+                  </li>
+                </ul>
+                <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                  <div class="tab-pane fade show active" id="bordered-justified-sthome" role="tabpanel" aria-labelledby="sthome-tab">
+                    <div class="card-body">
+    
+                      <table class="table table-borderless datatable">
+                        <thead>
+                          <tr>
+                            <th scope="col">Order Number</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Menu Items</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Served</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {%for x in t%}
+                          <tr>
+                            <th scope="row"><a href="{% url 'edit_sale' x.id%}">#{{x.id}}</a></th>
+                            <td><a href="{% url 'edit_sale' x.id%}" class="text-primary">{{x.customer.name}}</a></td>
+                            <td>{{x.get_cart_items}}</td>
+                            <td>ksh{{x.get_cart_total}}</td>
+                            <td><span class="badge bg-danger">{{x.served}}</span></td>
+                          </tr>
+                          {%endfor%}
+                        </tbody>
+                      </table>
+    
+                    </div>
+                  </div>
+                  <div class="tab-pane fade " id="bordered-justified-smprofile" role="tabpanel" aria-labelledby="smprofile-tab">
+                    <div class="card-body">
+    
+                      <table class="table table-borderless datatable">
+                        <thead>
+                          <tr>
+                            <th scope="col">Order Number</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Menu Items</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Served</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {%for x in m%}
+                          <tr>
+                            <th scope="row"><a href="{% url 'edit_sale' x.id%}">#{{x.id}}</a></th>
+                            <td><a href="{% url 'edit_sale' x.id%}" class="text-primary">{{x.customer.name}}</a></td>
+                            <td>{{x.get_cart_items}}</td>
+                            <td>ksh{{x.get_cart_total}}</td>
+                            <td><span class="badge bg-danger">{{x.served}}</span></td>
+                          </tr>
+                          {%endfor%}
+                        </tbody>
+                      </table>
+    
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="bordered-justified-sycontact" role="tabpanel" aria-labelledby="sycontact-tab">
+                    <div class="card-body">
+    
+                      <table class="table table-borderless datatable">
+                        <thead>
+                          <tr>
+                            <th scope="col">Order Number</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Menu Items</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Served</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {%for x in y%}
+                          <tr>
+                            <th scope="row"><a href="{% url 'edit_sale' x.id%}">#{{x.id}}</a></th>
+                            <td><a href="{% url 'edit_sale' x.id%}" class="text-primary">{{x.customer.name}}</a></td>
+                            <td>{{x.get_cart_items}}</td>
+                            <td>ksh{{x.get_cart_total}}</td>
+                            <td><span class="badge bg-danger">{{x.served}}</span></td>
+                          </tr>
+                          {%endfor%}
+                        </tbody>
+                      </table>
+    
+                    </div>
+                  </div>
+
+                </div><!-- End Bordered Tabs Justified -->
+  
+              </div>
+
+            </div>
+          </div><!-- End Recent Sales -->
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block title %}Contact Messages{%endblock%}
+
+{% block content %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1> Contact Messages Data</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item active">Messages</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Contact Messages</h5>
+              <p><i class="bi bi-chat-left-dots"></i>  <span>Messages</span></p>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Send By</th>
+                    <th scope="col">Senders Email</th>
+                    <th scope="col">Time Send</th>
+                    <th scope="col">Reply Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for contact in contacts %}
+                  <tr>
+                    <th scope="row">{{contact.id}}</th>
+                    <td><a href="{% url 'contact_details' contact.id %}" title="click to view message">{{contact.name}}</a></td>
+                    <td>{{contact.email}}</td>
+                    <td>{{contact.send_at}}</td>
+                    <td>{{contact.replied}}</td>
+                    {%if request.user.staff.admin %}
+                        <td>
+                          <a href="{% url 'delete_contact' contact.id %}" class="btn btn-danger btn-sm" title="delete customer"><i class="bi bi-trash"></i></a>
+                        </th>
+                      {% endif %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock %}

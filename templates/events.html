@@ -1,0 +1,47 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block title %}Events{%endblock%}
+
+{% block content %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1> Events </h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li class="breadcrumb-item active">Events</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <p><a href="{% url 'add_event' %}"><i style="color: blue; font-weight: 100;" class="bi bi-plus-circle"></i>  <span>Add Event</span></a></p>
+      <div class="row">
+        
+        {% for event in events %}
+        <div class="col-lg-3">
+            <!-- Card with an image on top -->
+            <div class="card">
+                <img src="{{event.imageURL}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h3 class="card-title">{{event.name}}</h3>
+                <h4 class="card-title">ksh{{event.price}}</h4>
+                <p class="card-text">{{event.short_description}}</p>
+                <hr/>
+                {%if request.user.staff.admin %}
+                <div style="text-align: center;">
+                    <a href="{% url 'event_details' event.id%}" class="btn btn-warning btn-sm" title="edit event"><i class="bi bi-pencil-square"></i></a>
+                    <a href="{% url 'delete_event' event.id%}" class="btn btn-danger btn-sm" title="delete event"><i class="bi bi-trash"></i></a>
+                </div>
+                {% endif %}
+                </div>
+            </div><!-- End Card with an image on top -->
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock %}

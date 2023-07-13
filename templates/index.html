@@ -1,0 +1,438 @@
+{%extends 'main.html'%}
+{% load humanize %}
+{%load static %}
+{% block title%} Welcome{%endblock title%}
+{% block content %}
+    <!-- ======= hero Section ======= -->
+    <section id="hero" class="hero">
+      <div class="container">
+
+        <div class="section-title">
+          
+        </div>
+
+        <div class="events-slider swiper">
+          <div class="swiper-wrapper">
+            {% for promotion in promotions %}
+            <div class="swiper-slide">
+              <div class="row hero-item">
+                <div class="hero-info col-lg-6 pt-4 pt-lg-0 ">
+                  {% for info in infos %}
+                  <h3>Best in {{info.name}}</h3>
+                  {%endfor%}
+                  <h2>{{promotion.name}}</h2>
+      
+                  <p class="fst-italic">
+                    {{promotion.overview}}
+                  </p>
+                  <div class="price">
+                    <p><span>{{promotion.price | intcomma}}</span></p>
+                  </div>
+                  <div class="text-center"><button data-menu={{promotion.id}} data-action="add" class="update-cart " type="submit">order now</button></div>
+                </div>
+                <div class="col-lg-6">
+                  <img src="{{promotion.imageURL}}" class="img-fluid" alt="">
+                </div>
+              </div>
+            </div><!-- End hero item -->
+            {% endfor %}
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End hero Section -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="row">
+          {% for about in abouts %}
+          <h2>About <span>us</span></h2>
+          <div class="col-lg-5 align-items-stretch video-box" >
+            <img src="{{about.imageURL}}" alt="" class="img-fluid">
+          </div>
+
+          <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
+
+            <div class="content">
+              <h3>why choose us? <strong>Daily</strong></h3>
+              <p>
+                {{ about.short_description}}
+              </p>
+              
+              <ul>
+                <li><i class="bx bx-check-double"></i> {{about.vision}}</li>
+                <li><i class="bx bx-check-double"></i> {{about.mission}}</li>
+                <li><i class="bx bx-check-double"></i> {{about.values}}</li>
+              </ul>
+
+              <p>
+                {{about.closing_description}}
+              </p>
+            </div>
+
+          </div>
+          {% endfor %}
+
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+    
+
+    <!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Check our tasty <span>Menu</span></h2>
+        </div>
+
+        <div class="row  overflow-auto">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="menu-flters" >
+              <li data-filter="*" class="filter-active">Show All</li>
+              {% for category in categorys %}
+                <li data-filter=".filter-{{category.name}}">{{category.name}}</li>
+              {%endfor%}
+            </ul>
+          </div>
+        </div>
+        <div >
+          <div class="row menu-container">
+            {% for menu in menus%}
+            <div class="col-lg-4  menu-item filter-{{menu.category.name}}">
+              <div class="box">
+                <div class="menu-image">
+                  <img src="{{menu.imageURL}}" alt="" class="img-fluid">
+                </div>
+                <div class="small-card"><a href="{% url 'review' %}" title="rate us"><i class="bi-heart-fill"></i></a></div>
+                <div class="menu-info">
+                  <h2>{{menu.name}}</h2>
+                  <p>{{menu.ingredients}}</p>
+                  <p style="color: black;">{{menu.price | intcomma}}</p>
+                  <div class = "menu-icon">
+                    <i class="bi bi-star-fill"></i>
+                    <i  class="bi bi-star-fill"></i>
+                    <i  class="bi bi-star-fill"></i>
+                    <i  class="bi bi-star-fill"></i>
+                    <i  class="bi bi-star-half"></i>
+                  </div>
+                  <div class="text-center"><button data-menu={{menu.id}} data-action="add" class="update-cart " type="submit">order now</button></div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+  
+          </div>
+        </div>
+
+
+      </div>
+    </section><!-- End Menu Section -->
+
+    <!-- ======= Specials Section ======= -->
+    <section id="specials" class="specials">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Check our <span>Specials</span></h2>
+          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3">
+            <ul class="nav nav-tabs flex-column">
+              {% for special in specials %}
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab-{{special.name}}">{{special.name}}</a>
+              </li>
+              {%endfor%}
+            </ul>
+          </div>
+          <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="tab-content">
+              {% for special in specials %}
+              
+              <div class="tab-pane" id="tab-{{special.name}}">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>{{special.name}}</h3>
+                    <p class="fst-italic">{{special.ingredients}}</p>
+                    <p>{{special.description}}</p>
+                    <p style="color: black;">{{special.price}}</p>
+                    <div class="text-center"><button data-menu={{special.id}} data-action="add" class="update-cart " type="submit">order now</button></div>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{special.imageURL}}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              
+              {%endfor%}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Specials Section -->
+
+    <!-- ======= Events Section ======= -->
+    <section id="events" class="events">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Organize Your <span>Events</span> in our Restaurant</h2>
+        </div>
+
+        <div class="events-slider swiper">
+          <div class="swiper-wrapper">
+            {% for event in events %}
+            <div class="swiper-slide">
+              <div class="row event-item">
+                <div class="col-lg-6">
+                  <img src="{{event.imageURL}}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0 content">
+                  <h3>{{event.name}}</h3>
+                  <div class="price">
+                    <p><span>{{event.price | intcomma}}</span></p>
+                  </div>
+                  <p class="fst-italic">
+                    {{event.short_description}}
+                  </p>
+                  <ul>
+                    <li><i class="bi bi-check-circle"></i> {{event.features1}}</li>
+                    <li><i class="bi bi-check-circle"></i> {{event.features2}}</li>
+                    <li><i class="bi bi-check-circle"></i> {{event.features3}}</li>
+                  </ul>
+                  <p>
+                    {{event.event_story}}
+                  </p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+            {% endfor %}
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Events Section -->
+
+    <!-- ======= Book A Table Section ======= -->
+    <section id="book-a-table" class="book-a-table">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Book a <span>Table</span></h2>
+          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem. </p>
+        </div>
+
+        <form action="{% url 'book_table' %}" method="post" role="form" class="php-email-form">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-lg-4 col-md-6 form-group">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+              <div class="validate"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+              <div class="validate"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+              <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+              <div class="validate"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group mt-3">
+              <input type="text" name="date" class="form-control" id="date" placeholder="Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+              <div class="validate"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group mt-3">
+              <input type="text" class="form-control" name="time" id="time" placeholder="Time" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+              <div class="validate"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group mt-3">
+              <input type="number" class="form-control" name="people" id="people" placeholder="# of people" data-rule="minlen:1" data-msg="Please enter at least 1 chars">
+              <div class="validate"></div>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
+            <div class="validate"></div>
+          </div>
+          <div class="text-center"><button type="submit">Send Message</button></div>
+        </form>
+
+      </div>
+    </section><!-- End Book A Table Section -->
+
+
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+      <div class="container-fluid">
+
+        <div class="section-title">
+          <h2>Some photos from <span>Our Restaurant</span></h2>
+        </div>
+
+        <div class="row g-0">
+          {% for gallery in galleries %}
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <img src="{{gallery.imageURL}}" alt="" class="img-fluid">
+              <div class="gallery-info">
+                <div class="gallery-info-content">
+                  <h4>{{gallery.event}}</h4>
+                  <span>{{gallery.short_description}}</span>
+                </div>
+                <div class="social">
+                  <a href="{{gallery.twitter}}"><i class="bi bi-twitter"></i></a>
+                  <a href="{{gallery.facebook}}"><i class="bi bi-facebook"></i></a>
+                  <a href="{{gallery.instagram}}"><i class="bi bi-instagram"></i></a>
+                  <a href="{{gallery.linkedin}}"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+
+      </div>
+    </section><!-- End Gallery Section -->
+
+    <!-- ======= Chefs Section ======= -->
+    <section id="chefs" class="chefs">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Our Proffesional <span>Chefs</span></h2>
+          
+        </div>
+
+        <div class="row">
+          {% for staff in staffs %}
+          <div class="col-lg-4 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="{{staff.imageURL}}" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>{{staff.name}}</h4>
+                <span>{{staff.position}}</span>
+                <div class="social">
+                  <a href="{{staff.twitter}}"><i class="bi bi-twitter"></i></a>
+                  <a href="{{staff.facebook}}"><i class="bi bi-facebook"></i></a>
+                  <a href="{{staff.instagram}}"><i class="bi bi-instagram"></i></a>
+                  <a href="{{staff.linkedin}}"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </section><!-- End Chefs Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container position-relative">
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="10000">
+          <div class="swiper-wrapper">
+
+            {% for review in reviews %}
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{{review.imageURL}}" class="testimonial-img" alt="">
+                <h3>{{review.name}}</h3>
+                <h4>{{review.job_position}}</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  {{review.review_message}}
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+            {% endfor %}
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+        
+        <div class="section-title">
+          <h2><span>Contact</span> Us</h2>
+        </div>
+
+        <div class="container mt-5">
+          {% for info in infos %}
+          <div class="info-wrap">
+            <div class="row">
+              <div class="col-lg-3 col-md-6 info">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>{{info.address}}<br>{{info.location}}, {{info.county}} - {{info.country}}</p>
+              </div>
+
+              <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
+                <i class="bi bi-clock"></i>
+                <h4>Open Hours:</h4>
+                <p>{{info.first_day}}-{{info.last_day}}:<br>{{info.opening_time}} - {{info.closing_time}}</p>
+              </div>
+
+              <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>{{info.email1}}<br>{{info.email2}}</p>
+              </div>
+
+              <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>{{info.call1}}<br>{{info.call2}}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <form action="{% url 'contact_us' %}" method="POST" class="php-email-form">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+            </div>
+            <div class="form-group mt-3">
+              <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+            </div>
+            <div class="text-center"><button type="submit">Send Message</button></div>
+          </form>
+
+        </div>
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+{% endblock content %}

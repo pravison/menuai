@@ -1,0 +1,71 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block title %}staffs{%endblock%}
+
+{% block content %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1> Staff Data</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item active">Staff</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Staffs</h5>
+              <p><a href="{% url 'add_staff' %}"><i class="bi bi-plus"></i>  <span>Add</span></a></p>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for staff in staffs%}
+                  <tr>
+                    <th scope="row">{{staff.id}}</th>
+                    <td><a href="{% url 'staff_details' staff.id %}">{{staff.name}}</a></td>
+                    <td>{{staff.position}}</td>
+                    <td>{{staff.age}}</td>
+                    <td>{{staff.phone_number}}</td>
+                    {%if request.user.staff.admin %}
+                        <td>
+                          {% if staff.admin %}
+                          {%else%}
+                            <a href="{% url 'delete_staff' staff.id %}" class="btn btn-danger btn-sm" title="delete menu"><i class="bi bi-trash"></i></a>
+                          {%endif%}
+                        </th>
+                      {% endif %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}Update Sale{%endblock%}
+
+{% block content %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Update Sale Status</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'sales' %}">Sales</a></li>
+          <li class="breadcrumb-item active">Update Sale</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    {%if success%}
+        <div class="alert alert-success" role="alert">
+            <p>The sale was updated successfully.</p>
+            <p><a href="{% url 'sales' %}"><i class="bi bi-arrow-left"></i>Go back to the Sales page</a></p>
+        </div>
+    {%else%}
+        <section class="section">
+          <div class="row">
+            <div class="col-lg-8">
+                <!-- Default Card -->
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Customer : {{order.customer.name}} </h5>
+                    <div style="display: flex; justify-content: space-between;">
+                      <h4> {%for table in tables %}<span>Table No  :  {{table.table_number}}</span>{%endfor%}</h4>
+                      <h5>ksh{{order.get_cart_total}}</h5>
+                    </div>
+                    
+                    <table class="table">
+                      <thead>
+                          <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Menu</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Served</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for item in items %}
+                          <tr style="align-items: center;">
+                            <th scope="row"><a href="#"><img style="height: 50px;" src="{{item.menu.imageURL}}" alt="" class="img-fluid"></a></th>
+                            <td><a href="#" class="text-primary fw-bold">{{item.menu.name}}</a></td>
+                            <td>ksh.{{item.menu.price}}</td>
+                            <td class="fw-bold">{{item.quantity}}</td>
+                            <td class="fw-bold">{{item.get_total}}</td>
+                            <td class="fw-bold">{{order.served}}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- End Table with stripped rows -->
+                    <!-- General Form Elements -->
+                    <form method="POST" action="." enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {% if form.errors or form.non_field_errors %}
+                        <div class="col-12">
+                        {% for field in form %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <p class="small mb-0" style="color: red;">{{ field.errors }}</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        </div>
+                        {% endif %}
+                        {{form.non_field_errors}}
+
+                        <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label">served</label>
+                        <div class="col-sm-10">
+                            {{ form.served }}
+                        </div>
+                        </div>
+
+                        <div class="row mb-3" >
+                          <div class="col-sm-10">
+                              <button style="align-items: center;" type="submit" class="btn btn-primary">Update Changes</button>
+                          </div>
+                        </div>
+
+                    </form><!-- End General Form Elements -->
+                  </div>
+                </div><!-- End Default Card -->
+            
+
+            </div>
+         </div>
+        </section>
+    {%endif%}
+
+  </main><!-- End #main -->
+{%endblock%}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%} Add Gallery{%endblock%}
+
+{% block content %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1> Add Gallery</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'galleries' %}">Galleries</a></li>
+          <li class="breadcrumb-item active">Gallery</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    {%if success%}
+      <div class="alert alert-success" role="alert">
+        The Gallery  was added successfuly.
+        <a href="{% url 'galleries' %}"><i class="bi bi-arrow-left">back to the Gallery page</i></a>
+      </div>
+    {%else%}
+      <section class="section">
+        <div class="row">
+          <div class="col-lg-8">
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Gallery Info:</h5>
+
+                <!-- General Form Elements -->
+                <form method="POST" action="." enctype="multipart/form-data">
+
+                  {% csrf_token %}
+
+                  {% if form.errors or form.non_field_errors %}
+                  <div class="col-12">
+                    {% for field in form %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <p class="small mb-0" style="color: red;">{{ field.errors }}</p>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                  {{form.non_field_errors}}
+
+                  <div class="row mb-3 pt-2">
+                    <label for="inputNumber" class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-10">
+                      {{ form.image }}
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Event</label>
+                    <div class="col-sm-10">
+                      {{ form.event }}
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Short Description</label>
+                    <div class="col-sm-10">
+                      {{form.short_description }}
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Facebook</label>
+                  <div class="col-sm-10">
+                      {{ form.facebook }}
+                  </div>
+                  </div>
+
+                  <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">twitter</label>
+                  <div class="col-sm-10">
+                      {{ form.twitter }}
+                  </div>
+                  </div>
+
+                  <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Instagram</label>
+                  <div class="col-sm-10">
+                      {{ form.instagram }}
+                  </div>
+                  </div>
+
+                  <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Linkedin</label>
+                  <div class="col-sm-10">
+                      {{ form.linkedin }}
+                  </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">Featured</legend>
+                    <div class="col-sm-10">
+                      <div class="form-check">
+                        {{ form.featured }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3" >
+                    <div class="col-sm-10">
+                      <button style="align-items: center;" type="submit" class="btn btn-primary">Add</button>
+                      <button style="align-items: center;" class="btn btn-secondary"><a href="{% url 'galleries' %}" class="alert-link">Cancel</a></button>
+                    </div>
+                  </div>
+
+                </form><!-- End General Form Elements -->
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    {%endif%}
+
+  </main><!-- End #main -->
+{%endblock%}
