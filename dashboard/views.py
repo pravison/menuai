@@ -15,12 +15,12 @@ import copy
 
 # Create your views here.
 @login_required
-def dashboard(request):
+def dashboard(request): 
     year = datetime.date.today().year
     month = datetime.date.today().month
     today = timezone.now().date()
-    menu = Menu.objects.all()
-    customers = Customer.objects.all().filter(created_at__year=year)
+    #menu = Menu.objects.all()
+    #customers = Customer.objects.all().filter(created_at__year=year)
     t = Order.objects.all().filter(date_orderd__date=today, complete=True)
     m = Order.objects.all().filter(date_orderd__month=month, complete=True)
     y = Order.objects.all().filter(date_orderd__year=year, complete=True)
@@ -44,7 +44,7 @@ def dashboard(request):
             s={'name':s.menu.name, 'quantity':s.quantity, 'total':s.get_total}
             arrays.append(s)  
                 
-     
+    
         array_dict ={} 
         for array in arrays:
             array_name = array["name"]
@@ -81,7 +81,7 @@ def dashboard(request):
                     array_dict[array_name] = array_quantity
                     array_dict[array_name] = array_total
                 print(f'array: {array_name}, quantity: {array_quantity}')'''
- 
+
     for x in y:
         yoi= x.orderitem_set.all()
         ysum +=x.get_cart_total
@@ -101,8 +101,7 @@ def dashboard(request):
         'tcustomer':tcustomer,
         'mcustomer' :mcustomer,
         'ycustomer':ycustomer,
-        'moi':moi,
-        'yoi':yoi,
+        
     }
     return render(request, 'dashboard.html', context)
 
@@ -452,9 +451,9 @@ def editEvent(request, id):
 
 @login_required
 def company(request):
-    infos = Company.objects.all()#correct this query to query on the last updated
-    links = SocialMediaLink.objects.all()#correct this query to query on the last updated
-    abouts = AboutUs.objects.all()#correct this query to query on the last updated
+    infos = Company.objects.order_by('created_at')[:1]
+    links = SocialMediaLink.objects.all()
+    abouts = AboutUs.objects.order_by('created_at')[:1]
     context ={
         'infos': infos,
         'abouts':abouts,

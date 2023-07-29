@@ -148,15 +148,31 @@
         <div class="row">
           <div class="col-lg-3">
             <ul class="nav nav-tabs flex-column">
-              {% for special in specials %}
               <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#tab-{{special.name}}">{{special.name}}</a>
+                {% for special in specials %}
                 <a class="nav-link" data-bs-toggle="tab" href="#tab-{{special.name}}">{{special.name}}</a>
+                {%endfor%}
               </li>
-              {%endfor%}
             </ul>
           </div>
           <div class="col-lg-9 mt-4 mt-lg-0">
             <div class="tab-content">
+              <div class="tab-pane active" id="tab-{{special.name}}">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>{{special.name}}</h3>
+                    <p class="fst-italic">{{special.ingredients}}</p>
+                    <p>{{special.description}}</p>
+                    <p style="color: black;">{{special.price}}</p>
+                    <div class="text-center"><button data-menu={{special.id}} data-action="add" class="update-cart " type="submit">order now</button></div>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{special.imageURL}}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              
               {% for special in specials %}
               
               <div class="tab-pane" id="tab-{{special.name}}">

@@ -114,7 +114,11 @@
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
       <div class="icons" style="display: flex;">
+        {%if request.user.staff %}
+        <div><a href="/admin" class="scrollto" title="Admin"><i class="bi bi-lock"></i></a></div>
+        {% else %}
         <div><a href="{% url 'login' %}" class="scrollto" title="log in"><i class="bi bi-box-arrow-in-right"></i></a></div>
+        {% endif %}
         {%if request.user.staff %}
           <div><a href="{% url 'dashboard' %}" class="scrollto" title="visit dashboard"><i class="bi bi-grid"></i></a></div>
         {% else %}
@@ -122,12 +126,11 @@
             <a class="icon" href="#" data-bs-toggle="dropdown" title="talk to our waiter"><i class="bi bi-telephone" ></i></a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
               <li class="dropdown-header text-start">
-                <h6>Call one of them</h6>
+                <h6>click to call one of them</h6>
               </li>
-
-              <li><a class="dropdown-item" href="#">Today</a></li>
-              <li><a class="dropdown-item" href="#">This Month</a></li>
-              <li><a class="dropdown-item" href="#">This Year</a></li>
+              {% for waiter in waiters %}
+              <li><a class="dropdown-item" href="tel:{{phone_number}}">{{waiter.name}}</a></li>
+              {%endfor%}
             </ul>
           </div>
         {% endif %}
@@ -165,7 +168,7 @@
         &copy; Copyright <strong><span>{{info.name}}</span></strong>.  All Rights Reserved
       </div>
       <div class="credits">
-        Designed by <a href="https://menu.ai/">menu.ai</a>
+        Designed by <a href="http://localhost:8000/">menu.ai</a>
       </div>
       {% endfor %}
     </div>

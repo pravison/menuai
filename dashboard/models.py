@@ -18,6 +18,8 @@ class Staff(models.Model):
     twitter = models.URLField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True)
     linkedin = models.URLField(blank=True, null=True)
+    waiter = models.BooleanField(default=False, blank=True, null=True,)
+    on_shift = models.BooleanField(default=False, blank=True, null=True,)
     featured = models.BooleanField(default=False, blank=True, null=True,)
     admin = models.BooleanField(blank=True, null=True, default=False)
     

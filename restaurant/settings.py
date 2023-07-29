@@ -9,9 +9,17 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import dj_database_url
 from pathlib import Path
 import os
+
+from environ import Env
+
+
+
+env = Env()
+env.read_env()
+#from django-tenant_schemas import DATABASE_ROUTER
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +29,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bejs+w3ng#ji1srf(v9*maep3f@86gm7lp*1=p(axd6-p!cp9a'
+SECRET_KEY = os.environ.get('SECRETE_KEY', default='django-insecure-bejs+w3ng#ji1srf(v9*maep3f@86gm7lp*1=p(axd6-p!cp9a')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 LOGIN_URL = "/dashboard/login/"
 LOGIN_REDIRECT_URL ="/"
@@ -34,23 +45,43 @@ LOGOUT_REDIRECT_URL ="/"
 
 
 # Application definition
-
-INSTALLED_APPS = [
+SHARED_APPS = (
+    'django_tenants',
+    'client.apps.ClientConfig',
+    
+    'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+)
 
+TENANT_APPS =(
     'menu',
     'qrgenerator',
-    'dashboard'
-]
+    'dashboard',
+    'client.apps.ClientConfig',
+    'django.contrib.contenttypes',
+
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.humanize',
+)
+
+INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
+TENANT_MODEL = "client.Client"
+TENANT_DOMAIN_MODEL ="client.Domain"
 
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -60,6 +91,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'restaurant.urls'
+PUBLIC_SCHEMA_URLCONF = 'restaurant.urls_public'
 
 TEMPLATES = [
     {
@@ -68,8 +100,8 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.debug',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -84,11 +116,19 @@ WSGI_APPLICATION = 'restaurant.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default='django_tenants.postgresql_backend://pravo:0710abdi@localhost:5432/menu',
+        conn_max_age=600
+    )
 }
+
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
+
+PUBLIC_SCHEMA_NAME = 'public'
+
 
 
 # Password validation
@@ -126,6 +166,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+if not DEBUG: # telling django to copy statics to static files directory
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    #turn on whitenoise storage backend
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
@@ -136,3 +180,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
+

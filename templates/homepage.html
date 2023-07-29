@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Homepage | Menu.ai</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/quill/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/simple-datatables/style.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  
+  <link href="{% static 'asset/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="{% url 'homepage' %}" class="logo d-flex align-items-center">
+        <img src="" alt="">
+        <span>MenuAi</span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{% url 'homepage' %}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'register' %}">Pricing</a></li>
+          
+          <li><a class="getstarted scrollto" href="{% url 'register' %}">Get Started</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center">
+          <h1 data-aos="fade-up">Elavate Your Restaurants Performance with our QR Menu</h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">Collect customers data, Engage with your customers and Boost Sales</h2>
+          <div data-aos="fade-up" data-aos-delay="600">
+            <div class="text-center text-lg-start">
+              <a href="{% url 'register' %}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                <span>Get Started</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+          <img src="{% static 'asset/img/values-2.png' %}" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+  
+      <div class="footer-top">
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-lg-5 col-md-12 footer-info">
+              <a href="{% url 'homepage' %}" class="logo d-flex align-items-center">
+                <img src="" alt="">
+                <span>MenuAi</span>
+              </a>
+              <p>As a Restaurant owner, you know better than anyone, that customer satisfaction and streamlined operations are key to success, in this competitive dining industry. Thats why am thrilled to introduce to you our Qr Menu, a comphensive solution that not only enhances your guests' dining experience but also elavete your restaurants perfomance in multiple ways.</p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100094360646887" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-6 footer-links">
+              <h4>Our Services</h4>
+              <ul>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Qr menu</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Menu Engineering</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Customer data collection</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Staff optimization</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Sales Upsells</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Enhancing Customer engagement</a></li>
+              </ul>
+            </div>
+  
+            <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+              <h4>Contact Us</h4>
+              <p>
+                4th Floor Delta Corner  <br>
+                Westlands, Nairobi <br>
+                Kenya <br><br>
+                <strong>Phone:</strong> +254740562740<br>
+                <strong>Email:</strong> pravisonjuma09@gmail.com<br>
+              </p>
+  
+            </div>
+  
+          </div>
+        </div>
+      </div>
+  
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>MenuAi</span></strong>. All Rights Reserved
+        </div>
+      </div>
+    </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'vendor/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'vendor/quill/quill.min.js' %}"></script>
+  <script src="{% static 'vendor/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'vendor/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'asset/js/main.js' %}"></script>
+
+</body>
+
+</html>

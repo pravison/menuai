@@ -17,13 +17,15 @@ def index(request):
     galleries = Gallery.objects.filter(featured=True)
     promotions = Menu.objects.filter(promotion=True)
     specials = Menu.objects.filter(special=True)
+    special = Menu.objects.filter(special=True).first()
     events = Events.objects.all()
     reviews = CustomerReview.objects.filter(featured=True)
     staffs = Staff.objects.filter(featured=True)
-    infos = Company.objects.all()#must correct this query to query the last updated
-    abouts = AboutUs.objects.all()#must correct this query to query the last updated
+    infos = Company.objects.order_by('created_at')[:1]
+    abouts = AboutUs.objects.order_by('created_at')[:1]
     links = SocialMediaLink.objects.all()
     categorys = Category.objects.all()
+    waiters = Staff.objects.filter(waiter=True, on_shift=True)
 
     data = cartData(request)
     cartItems = data['cartItems']
@@ -40,7 +42,9 @@ def index(request):
         'abouts': abouts,
         'staffs': staffs,
         'links':links,
-        'categorys': categorys
+        'categorys': categorys,
+        'special':special,
+        'waiters': waiters
     }
     return render(request, 'index.html', context)
 
@@ -108,7 +112,8 @@ def delete(request, id):
     return redirect(reverse('menu'))
 
 def cart(request):
-    infos = Company.objects.all()#must correct this query to query the last updated
+    infos = Company.objects.order_by('created_at')[:1]
+    waiters = Staff.objects.filter(waiter=True, on_shift=True)
     data = cartData(request)
     cartItems = data['cartItems']
     order = data['order']
@@ -119,12 +124,14 @@ def cart(request):
         'items': items,
         'order': order,
         'cartItems':cartItems,
-        'infos':infos
+        'infos':infos,
+        'waiters':waiters
     }
     return render (request, 'cart.html', context)
 
 def checkout(request):
-    infos = Company.objects.all()#must correct this query to query the last updated
+    infos = Company.objects.order_by('created_at')[:1]
+    waiters = Staff.objects.filter(waiter=True, on_shift=True)
     data = cartData(request)
     cartItems = data['cartItems']
     order = data['order']
@@ -134,7 +141,8 @@ def checkout(request):
         'items': items,
         'order': order,
         'cartItems':cartItems,
-        'infos':infos
+        'infos':infos,
+        'waiters':waiters
     }
     return render(request, 'checkout.html', context)
 

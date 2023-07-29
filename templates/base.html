@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>{%block title %}{%endblock%} | Menu.ai</title>
+  <title>{%block title %}{%endblock%} | {%for info in infos %}{{info.name}}{%endfor%}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -37,11 +37,14 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="{% url 'index' %}" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Menu.ai</span>
-      </a>
+      
       <i class="bi bi-list toggle-sidebar-btn"></i>
+      {%for info in infos %}
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+        <img src="{{info.imageURL}}" alt="">
+        <span class="d-none d-lg-block">{{info.name}}</span>
+      </a>
+      {%endfor%}
     </div><!-- End Logo -->
 
     <!--<div class="search-bar">
@@ -393,7 +396,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Menu.ai</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>{%for info in infos %}{{info.name}}{%endfor%}</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       Designed by <a href="https://menu.ai/">Menu.ai</a>

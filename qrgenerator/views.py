@@ -16,12 +16,7 @@ def qrGenerator(request):
         img_name= 'qr' + str(time.time()) + '.png'
         img.save(settings.MEDIA_ROOT / img_name)
         return render(request, 'qr.html', {'img_name':img_name})
+    
+
     return render(request, 'qr.html')
 
-def fileDownload(request, filename):
-    filepath = os.path.join(settings.MEDIAROOT, filename)
-    wrapper = FileWrapper(open(filepath, 'rb'))
-    content_type= mimetypes.guess_type(filepath)[0]
-    response = HttpResponse(wrapper, mimetype='content_type')
-    response['Content-Disposition'] ="attachment; filename= %s" % filename
-    return response

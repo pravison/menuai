@@ -4,6 +4,8 @@ from django.contrib import admin
 
 from . models import Category, BestServedAt, Menu, Order, OrderItem, TableInfo, Customer
 
+
+
 admin.site.register(Customer)
 
 admin.site.register(Category)

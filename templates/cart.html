@@ -17,7 +17,7 @@
               <table class="table">
                 <tr>
                     <th><h5>Menu Items: <strong>{{order.get_cart_items}}</strong></h5></th>
-                    <th><h5>Total: <strong>Ksh {{order.get_cart_total | intcomma }}</strong></h5></th>
+                    <th><h5>Total: <strong> {{order.get_cart_total | intcomma }}</strong></h5></th>
                     <th>
                         <a style="float:right; margin:5px" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
                     </th>
@@ -33,7 +33,6 @@
                     <div style="flex:2"><strong>Menu Item</strong></div>
                     <div style="flex:1"><strong>Price</strong></div>
                     <div style="flex:1"><strong>Quantity</strong></div>
-                    <div style="flex:1"><strong>Total</strong></div>
                 </div>
                 <hr/>
                 {% for item in items %}
@@ -48,7 +47,6 @@
                             <span data-menu={{item.menu.id}} data-action="remove" class="update-cart "><i class="bi-arrow-down-circle-fill"></i></span>
                         </div>
                     </div>
-                    <div style="flex:1">{{item.get_total | intcomma}}</div>
                 </div>
                 {% endfor %}
     
