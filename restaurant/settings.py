@@ -119,13 +119,8 @@ WSGI_APPLICATION = 'restaurant.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='django_tenants.postgresql_backend://pravo:0710abdi@localhos:5432/menu',
-        conn_max_age=600
-    )
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
-
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
 )
