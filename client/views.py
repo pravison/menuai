@@ -35,7 +35,7 @@ def tenantRegistration(request):
                 new_tenant.save()
 
                 domain = Domain()
-                domain.domain =tenant_name + '.localhost'
+                domain.domain =tenant_name + '.menuai.onrender.com' 
                 domain.tenant = new_tenant
                 domain.is_primary= True
                 domain.save()
@@ -48,7 +48,7 @@ def tenantRegistration(request):
                         email=superuser_email,
                     )
 
-                return redirect('http://www.' + domain.domain + ':8000/admin')
+                return redirect('https://www.' + domain.domain + '/admin')
     else:
         form = TenantRegistrationForm()
     return render(request, 'superuser_registration.html', {'form':form})

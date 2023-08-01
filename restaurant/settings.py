@@ -12,9 +12,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 """
 
-import dj_database_url
 from pathlib import Path
 import os
+
+from environ import Env
+
+
+
+env = Env()
+env.read_env()
 
 #from django-tenant_schemas import DATABASE_ROUTER
 
@@ -31,7 +37,7 @@ SECRET_KEY = os.environ.get('SECRETE_KEY', default='django-insecure-bejs+w3ng#ji
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['https://menuai.onrender.com']
+ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -112,8 +118,15 @@ WSGI_APPLICATION = 'restaurant.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+import dj_database_url 
+
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    'default': dj_database_url.parse(
+        env('DATABASE_URL'),
+        conn_max_age=600,
+        conn_health_checks=True,
+        engine='django_tenants.postgresql_backend'
+    )
 }
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',

@@ -23,7 +23,7 @@ idna==3.4
 Markdown==3.4.3
 packaging==23.1
 Pillow==9.5.0
-psycopg2==2.9.6
+psycopg2-binary==2.9.6
 pycparser==2.21
 pypng==0.20220715.0
 python-decouple==3.8
