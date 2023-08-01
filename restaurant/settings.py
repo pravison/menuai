@@ -125,7 +125,7 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.parse(
-        env('DATABASE_URL'),
+        'postgres://pravo:1ZPs6wO8GfYAirfgcZvaXDDijixcEN1p@dpg-cj4c7e5gkuvsl087e4v0-a.frankfurt-postgres.render.com/menuai_c3vr',
         conn_max_age=600,
         conn_health_checks=True,
         engine='django_tenants.postgresql_backend'
