@@ -1,2 +1,2 @@
 # menuai
-menuai is igital menu for restaurants
+menuai is digital menu for restaurants
