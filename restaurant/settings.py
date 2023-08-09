@@ -121,16 +121,27 @@ WSGI_APPLICATION = 'restaurant.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-import dj_database_url 
-
 DATABASES = {
-    'default': dj_database_url.parse(
-        'postgres://pravo:1ZPs6wO8GfYAirfgcZvaXDDijixcEN1p@dpg-cj4c7e5gkuvsl087e4v0-a.frankfurt-postgres.render.com/menuai_c3vr',
-        conn_max_age=600,
-        conn_health_checks=True,
-        engine='django_tenants.postgresql_backend'
-    )
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '0710abdi',
+        'PORT': '5432',
+    }
 }
+
+# import dj_database_url 
+
+# DATABASES = {
+#     'default': dj_database_url.parse(
+#         'postgres://pravo:1ZPs6wO8GfYAirfgcZvaXDDijixcEN1p@dpg-cj4c7e5gkuvsl087e4v0-a.frankfurt-postgres.render.com/menuai_c3vr',
+#         conn_max_age=600,
+#         conn_health_checks=True,
+#         engine='django_tenants.postgresql_backend'
+#     )
+# }
+
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
 )
