@@ -35,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRETE_KEY', default='django-insecure-bejs+w3ng#ji1srf(v9*maep3f@86gm7lp*1=p(axd6-p!cp9a')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False  #'RENDER' not in os.environ
+DEBUG = True  #'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ["*"]
 
@@ -124,10 +124,12 @@ WSGI_APPLICATION = 'restaurant.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '0710abdi',
-        'PORT': '5432',
+        'DATABASE_URL' : 'postgresql://postgres:UL2sVTbBbkAdn7R115vP@containers-us-west-143.railway.app:6944/railway',
+        'PGDATABASE' : 'railway',
+        'PGHOST': 'containers-us-west-143.railway.app',
+        'PGPASSWORD': 'UL2sVTbBbkAdn7R115vP',
+        'PGPORT': '6944',
+        'PGUSER': 'postgres',
     }
 }
 
