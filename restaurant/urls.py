@@ -24,8 +24,8 @@ admin.site.site_title = 'MENUAI '
 admin.site.index_title = 'SITE ADMNISTRATION'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('menu.urls')),
+    path('admin/', admin.site.urls),
     path('dashboard/', include('dashboard.urls')),
     path('qr_generator/', include('qrgenerator.urls'))
 
