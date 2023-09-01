@@ -121,15 +121,54 @@ WSGI_APPLICATION = 'restaurant.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# removed the dict bellow
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'DATABASE_URL' : 'postgresql://postgres:UL2sVTbBbkAdn7R115vP@containers-us-west-143.railway.app:6944/railway',
+#         'PGDATABASE' : 'railway',
+#         'PGHOST': 'containers-us-west-143.railway.app',
+#         'PGPASSWORD': 'UL2sVTbBbkAdn7R115vP',
+#         'PGPORT': '6944',
+#         'PGUSER': 'postgres',
+#     }
+# }
+
+# replaced with
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'UL2sVTbBbkAdn7R115vP',
+        'HOST': 'containers-us-west-143.railway.app',
+        'PORT': '6944',
         'DATABASE_URL' : 'postgresql://postgres:UL2sVTbBbkAdn7R115vP@containers-us-west-143.railway.app:6944/railway',
         'PGDATABASE' : 'railway',
+        'NAME':'railway',
         'PGHOST': 'containers-us-west-143.railway.app',
         'PGPASSWORD': 'UL2sVTbBbkAdn7R115vP',
         'PGPORT': '6944',
         'PGUSER': 'postgres',
+    }
+}
+
+# with postgreSQL on render
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'menuai_c3vr',
+        'USER': 'pravo',
+        'PASSWORD': '1ZPs6wO8GfYAirfgcZvaXDDijixcEN1p',
+        'HOST': 'dpg-cj4c7e5gkuvsl087e4v0-a.frankfurt-postgres.render.com',
+        'PORT': '5432',
+        'DATABASE_URL' : 'postgres://pravo:1ZPs6wO8GfYAirfgcZvaXDDijixcEN1p@dpg-cj4c7e5gkuvsl087e4v0-a.frankfurt-postgres.render.com/menuai_c3vr',
+        'PGDATABASE' : 'menuai_c3vr',
+        'PGHOST': 'dpg-cj4c7e5gkuvsl087e4v0-a.frankfurt-postgres.render.com',
+        'PGPASSWORD': '1ZPs6wO8GfYAirfgcZvaXDDijixcEN1p',
+        'PGPORT': '5432',
+        'PGUSER': 'pravo',
     }
 }
 
